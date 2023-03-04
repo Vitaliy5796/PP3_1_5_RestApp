@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<!--      шапка        -->
+<nav class="navbar navbar-dark bg-dark">
+    <a style="color: gray" class="nav-link" href="/logout">Logout</a>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!--        блок слева (выбор admin/user page)-->
+        <div class="col-md-2 p-0">
+            <br/>
+            <div class="row">
+                <nav class="nav flex-column nav-pills">
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a style="margin-left: 10px" class="nav-link" href="/admin">Admin</a>
+                    </div>
+                    <a style="margin-left: 10px" class="nav-link active" href="/user">User</a>
+                </nav>
+            </div>
+        </div>
+
+        <!--        User page-->
+        <!--        блок справа (User info page)-->
+        <div class="col-md-10 bg-light" style="height: 100vh">
+            <br/>
+            <div style="margin-left: 10px">
+                <!--            Вкладки Users table и New user-->
+                <h2>User information-page</h2>
+
+                <!--      About user    -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5>About user</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped" style="background-color: white">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="tbody_user">
+                            <!--          userPage.js           -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+</script>
+<script th:src="@{/js/userPage.js}"></script>
+</body>
+</html>
