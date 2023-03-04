@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import ru.sidorov.rest.RestApp.models.Role;
 import ru.sidorov.rest.RestApp.models.User;
 import ru.sidorov.rest.RestApp.service.UserService;
 import ru.sidorov.rest.RestApp.util.UserErrorResponse;
@@ -14,7 +15,10 @@ import ru.sidorov.rest.RestApp.util.UserNotFoundException;
 import ru.sidorov.rest.RestApp.util.UserNotUpdatedException;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -72,8 +76,7 @@ public class RestAdminController {
             throw new UserNotUpdatedException(errorMsg.toString());
         }
 
-        user.setId(id);
-        userService.save(user);
+        userService.update(id, user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

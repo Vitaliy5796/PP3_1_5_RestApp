@@ -8,12 +8,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.sidorov.rest.RestApp.models.Role;
 import ru.sidorov.rest.RestApp.models.User;
 import ru.sidorov.rest.RestApp.repositories.UserRepository;
 import ru.sidorov.rest.RestApp.util.UserNotFoundException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,11 +45,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (userDB != null) {
             return false;
         }
-        user.setRoles(Collections.singleton(new Role("ROLE_USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
     }
+
 
     public void update(Long id, User updateUser) {
         updateUser.setId(id);

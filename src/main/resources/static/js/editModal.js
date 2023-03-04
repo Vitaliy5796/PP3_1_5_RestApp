@@ -2,6 +2,7 @@ const editForm = document.getElementById('editForm');
 const edit_id = document.getElementById('edit_id');
 const edit_username = document.getElementById('edit_username');
 const edit_age = document.getElementById('edit_age');
+const edit_roles = document.getElementById('edit_roles')
 const edit_email = document.getElementById('edit_email');
 const edit_password = document.getElementById('edit_password');
 
@@ -16,6 +17,7 @@ async function editModal(id) {
                 edit_age.value = `${user.age}`;
                 edit_email.value = `${user.email}`;
                 edit_password.value = `${user.password}`;
+                edit_roles.value = `${user.roles}`;
             })
     } else {
         alert(`Error, ${modalEdit.status}`)

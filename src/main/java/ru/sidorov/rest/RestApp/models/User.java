@@ -50,7 +50,7 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id_fk"),
             inverseJoinColumns = @JoinColumn(name = "role_id_fk")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
 
     public User() {
@@ -129,30 +129,24 @@ public class User implements UserDetails {
     public Set<Role> getRoles() {
         return roles;
     }
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(String[] roles) {
+        Set<Role> roleSet = new HashSet<>();
+        for (String role : roles) {
+            if (role != null) {
+                if (role.equals("ROLE_ADMIN")) {
+                    roleSet.add(new Role(1L, role));
+                }
+                if (role.equals("ROLE_USER")) {
+                    roleSet.add(new Role(2L, role));
+                }
+            }
+            this.roles = roleSet;
+        }
     }
-
-//        public void setRoles(String[] roles) {
-//        Set<Role> roleSet = new HashSet<>();
-//        for (String role : roles) {
-//            if (role != null) {
-//                if (role.equals("ROLE_ADMIN")) {
-//                    roleSet.add(new Role(1L, role));
-//                }
-//                if (role.equals("ROLE_USER")) {
-//                    roleSet.add(new Role(2L, role));
-//                }
-//            }
-//            this.roles = roleSet;
-//        }
-//    }
-
-//    public String convertRolesToString() {
-//        return getRoles().toString().replaceAll("^\\[|\\]$", "").replace("ROLE_", "");
-//    }
-
 
     @Override
     public boolean equals(Object o) {
