@@ -1,9 +1,11 @@
 package ru.sidorov.rest.RestApp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "Roles")
@@ -16,11 +18,18 @@ public class Role implements GrantedAuthority {
     @Column(name = "role")
     private String role;
 
+    @JsonBackReference
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
+
+
     public Role() {}
 
     public Role(Long id) {
         this.id = id;
     }
+
+
 
     public Role(Long id, String role) {
         this.id = id;
@@ -40,20 +49,29 @@ public class Role implements GrantedAuthority {
     }
 
     public String getRole() {
-        if(role.equals("ROLE_USER")) {
-            return "USER";
-        } else {
-            return "ADMIN";
-        }
+//        if(role.equals("ROLE_USER")) {
+//            return "USER";
+//        } else {
+//            return "ADMIN";
+//        }
+        return role;
     }
 
     public void setRole(String role) {
         this.role = role;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
     @Override
     public String getAuthority() {
-        return role;
+        return getRole();
     }
 
     @Override
@@ -71,6 +89,6 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return getRole();
+        return role;
     }
 }

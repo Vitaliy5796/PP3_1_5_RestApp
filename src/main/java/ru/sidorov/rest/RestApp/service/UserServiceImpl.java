@@ -8,12 +8,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.sidorov.rest.RestApp.models.Role;
 import ru.sidorov.rest.RestApp.models.User;
 import ru.sidorov.rest.RestApp.repositories.UserRepository;
 import ru.sidorov.rest.RestApp.util.UserNotFoundException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
 
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
         return user;

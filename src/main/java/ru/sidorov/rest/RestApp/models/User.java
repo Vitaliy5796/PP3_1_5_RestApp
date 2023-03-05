@@ -47,14 +47,23 @@ public class User implements UserDetails {
     @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id_fk"),
-            inverseJoinColumns = @JoinColumn(name = "role_id_fk")
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
 
 
     public User() {
     }
+
+    public User(String username, int age, String email, String password, Set<Role> roles) {
+        this.username = username;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -129,24 +138,24 @@ public class User implements UserDetails {
     public Set<Role> getRoles() {
         return roles;
     }
-//    public void setRoles(Set<Role> roles) {
-//        this.roles = roles;
-//    }
-
-    public void setRoles(String[] roles) {
-        Set<Role> roleSet = new HashSet<>();
-        for (String role : roles) {
-            if (role != null) {
-                if (role.equals("ROLE_ADMIN")) {
-                    roleSet.add(new Role(1L, role));
-                }
-                if (role.equals("ROLE_USER")) {
-                    roleSet.add(new Role(2L, role));
-                }
-            }
-            this.roles = roleSet;
-        }
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
+
+//    public void setRoles(String[] roles) {
+//        Set<Role> roleSet = new HashSet<>();
+//        for (String role : roles) {
+//            if (role != null) {
+//                if (role.equals("ROLE_ADMIN")) {
+//                    roleSet.add(new Role(1L, role));
+//                }
+//                if (role.equals("ROLE_USER")) {
+//                    roleSet.add(new Role(2L, role));
+//                }
+//            }
+//            this.roles = roleSet;
+//        }
+//    }
 
     @Override
     public boolean equals(Object o) {
